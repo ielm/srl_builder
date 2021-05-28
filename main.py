@@ -40,12 +40,14 @@ if __name__ == "__main__":
     for dialog in data:
         print(f"\nProcessing dialog: {dialog['dialog_id']}")
         start_time = time.time()
-        process_dialog(dialog, srl_predictor=srl_predictor, dep_predictor=dep_predictor)
+        processed = process_dialog(dialog, srl_predictor=srl_predictor, dep_predictor=dep_predictor)
         print(f"Dialog Execution Time: {time.time()-start_time}")
+        with open(f"data/{dialog['dialog_id']}.json", "w", encoding="utf8") as wfile:
+            wfile.write(json.dumps(processed))
 
-    with open(
-        "/remote/ayuser/leoni/gator_data/Persuasion/srl_dialogs.json",
-        "w",
-        encoding="utf8",
-    ) as wfile:
-        wfile.write(json.dumps(data))
+    # with open(
+    #     "/remote/ayuser/leoni/gator_data/Persuasion/srl_dialogs.json",
+    #     "w",
+    #     encoding="utf8",
+    # ) as wfile:
+    #     wfile.write(json.dumps(data))
